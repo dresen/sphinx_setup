@@ -1,0 +1,32 @@
+PREPARING ACOUSTIC MODEL TRAINING WITH SPHINX
+
+
+This set of scripts are created to facilitate the creation of training and test data to use with pocketsphinx and sphinx3. So far it has only been possible semi-automate the process.
+
+The scripts require data in PRAAT textgrids, the corresponding sound files and that the filenames have a unique identifier to identify the correspondance. 
+The textgrids need to have 2 tiers: orthography and phonetic transcription. The first tier must contain the orthography and the second tier the phonetic transcription.
+The scripts also assume that CMULMTK is installed. If it is installed locally, you can change the commands in train_CMU_LM.py.
+ 
+
+The script is called with several arguments, e.g.
+
+~$ python setup_sphinx_db.py path_to_top_dir path_to_grid_dir dictionary_setting
+
+
+path_to_top_dir: the path to where you want the top directory to be placed. End the path with the name of the database, e.g. /home/user/Desktop/<database name>
+
+path_to_grid_dir: the path to the directory where all the textgrids are stored.
+
+dictionary_param: different settings can be used when you extract the dictionary from the transcriptions. The setting is used in extract_pron_dic.py where it is possible to add different extraction methods, stoplists etc.
+
+
+After running setup_sphinx_db.py, you can move your sound files into their appropriate places according to the sphinx training manual in the wav/ directory. Then run
+
+~$ python create_fileids.py abs_path_to_top_dir
+
+
+to create the '.fileids files. 
+
+Finally, you need to create the list of fillers.
+
+The Pocketsphinx/sphinx3 database should now be configured as specified in the walkthrough on http://cmusphinx.sourceforge.net/wiki/tutorialam and ready to follow the rest of the tutorial.
